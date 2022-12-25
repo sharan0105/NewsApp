@@ -36,7 +36,7 @@ class WelcomeScreen : Fragment() {
         component = (activity?.application as? AppClass)?.appComp
         //With this , dagger will be able to inject all dependencies of this fragment
         component?.injectWelcomeFragment(this)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(WelcomeScreenViewModelImpl::class.java)
+        viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(WelcomeScreenViewModelImpl::class.java)
         viewModel.onSignUpClick()
 
     }

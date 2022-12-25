@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity(){
          mainViewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModelImpl::class.java)
          mainViewModel.getNews()
          mainViewModel.newsArticles.observe(this, Observer {
+            loader.visibility =View.GONE
             newsList.visibility=View.VISIBLE
             it?.articles?.let { newsArticles ->
                 Log.i("NewsArticleLiveData", "$newsArticles")
