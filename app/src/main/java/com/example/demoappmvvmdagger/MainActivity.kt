@@ -5,12 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.demoappmvvmdagger.ViewModelFactory.MainViewModelFactory
+import com.example.demoappmvvmdagger.databinding.ActivityMainBinding
 import com.example.demoappmvvmdagger.viewModels.MainViewModelImpl
-import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 
@@ -20,10 +21,12 @@ class MainActivity : AppCompatActivity(){
     @Inject
     lateinit var viewModelFactory: MainViewModelFactory
 
+    private lateinit var binding:ActivityMainBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         val component = (application as AppClass).appComp
         component.inject(this)
         //After this line of code only dagger, will be able to inject all the required values
@@ -38,12 +41,12 @@ class MainActivity : AppCompatActivity(){
          mainViewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModelImpl::class.java)
          mainViewModel.getNews()
          mainViewModel.newsArticles.observe(this, Observer {
-            loader.visibility =View.GONE
-            newsList.visibility=View.VISIBLE
+            binding.loader.visibility =View.GONE
+            binding.newsList.visibility=View.VISIBLE
             it?.articles?.let { newsArticles ->
                 Log.i("NewsArticleLiveData", "$newsArticles")
-                newsList.adapter = RecViewAdapter(newsArticles,rvImpl)
-                newsList.layoutManager=LinearLayoutManager(this)
+                binding.newsList.adapter = RecViewAdapter(newsArticles,rvImpl)
+                binding.newsList.layoutManager=LinearLayoutManager(this)
             }
         })
     }
