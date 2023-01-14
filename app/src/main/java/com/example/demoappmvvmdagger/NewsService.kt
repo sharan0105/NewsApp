@@ -6,7 +6,7 @@ import retrofit2.http.Query
 import javax.inject.Singleton
 
 const val BASE_URL ="https://newsapi.org"
-const val API_KEY = "749423eb8d8b41fba37f68dc9cf83144"
+const val API_KEY  = "749423eb8d8b41fba37f68dc9cf83144"
 
 @Singleton
 interface NewsService {

@@ -32,12 +32,7 @@ class MainActivity : AppCompatActivity(){
         //After this line of code only dagger, will be able to inject all the required values
         //so before making use of any of these field injected objects , make sure , they are
         //always initialized
-         val rvImpl = object : RVClickListener {
-             override fun onViewClick() {
-                 val intent = Intent(this@MainActivity,SingleNewsDetail::class.java)
-                 startActivity(intent)
-             }
-         }
+
          mainViewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModelImpl::class.java)
          mainViewModel.getNews()
          mainViewModel.newsArticles.observe(this, Observer {
@@ -45,7 +40,7 @@ class MainActivity : AppCompatActivity(){
             binding.newsList.visibility=View.VISIBLE
             it?.articles?.let { newsArticles ->
                 Log.i("NewsArticleLiveData", "$newsArticles")
-                binding.newsList.adapter = RecViewAdapter(newsArticles,rvImpl)
+                binding.newsList.adapter = RecViewAdapter(newsArticles)
                 binding.newsList.layoutManager=LinearLayoutManager(this)
             }
         })
