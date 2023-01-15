@@ -20,29 +20,35 @@ If we see carefully , we can even create the view model itself as we know how to
 dependencies so , we can directly pass the view-model to the factory
 and check which view model was passed and simply consume it wherever we want to .*/
 
-class MainViewModelImpl @Inject constructor (val service: NewsService):MainViewModel,ViewModel() {
+class MainViewModelImpl @Inject constructor (private val service: NewsService):MainViewModel,ViewModel() {
     //Aim to check whether live data automatically updates the value on screen rotation or not
     //So now, we have the service , we just need to implement the service call
     private val compositeDisposable = CompositeDisposable()
     override val newsArticles = MutableLiveData<News>()
     override val newsError = MutableLiveData<Throwable>()
+    //This will always remain the same so why is the API call being made again despite
+    //the value being same and us using the distinctUntilChanged operator
     private var countryCode = Observable.just("in")
 
-    init {
-        //This will make 2 separate API calls once to get AUSTRALIA data and once for INDIA data
-        compositeDisposable.add(countryCode.flatMapSingle{ res -> getNewsSingle(res) }.subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe( {
-            newsArticles.postValue(it)
-        },{Log.d("Error","Encountered observable error")}))
-    }
+    init {}
 
     override fun getNews() {
         //Add function to get news data here . Right now service call is being made when the view
         //model is getting initialized
-        Log.d("ViewModelBinding","View model created properly")
+
+        compositeDisposable.add(countryCode.distinctUntilChanged().flatMap {res ->
+            Log.i("CountryCode", res)
+            getNewsObservable(res)
+            }.subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe({ news-> newsArticles.postValue(news)
+            Log.i("API", "Called again")},
+            { err-> Log.e("News Error", "News Service Encounter Error $err" ) }
+        ))
     }
 
 
-    private fun getNewsSingle(countryCode:String):Single<News> {
+    private fun getNewsObservable(countryCode:String):Observable<News> {
         return service.getCountryNews(countryCode, API_KEY)
     }
 
