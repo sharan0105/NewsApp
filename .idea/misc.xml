@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.16337386018237082" />
+        <entry key="app/src/main/res/drawable/disclaimer_background.xml" value="0.1375" />
+        <entry key="app/src/main/res/drawable/news_imge_background.xml" value="0.113" />
         <entry key="app/src/main/res/drawable/rec_view_background.xml" value="0.1955" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/activity_news.xml" value="0.19067028985507245" />

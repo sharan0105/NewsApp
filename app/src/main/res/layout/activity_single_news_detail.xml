@@ -28,7 +28,7 @@
         android:textSize="20sp"
         android:text="@{newsArticle.title}"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/newsImg"
+        app:layout_constraintBottom_toTopOf="@+id/newsAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -58,14 +58,16 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barrier1"
         app:layout_constraintBottom_toTopOf="@+id/newsContent"
-        android:layout_marginTop="30sp"
-        android:layout_marginBottom="20sp"
+        android:layout_marginTop="40sp"
+        android:layout_marginBottom="40sp"
+        android:padding="8sp"
+        android:background="@drawable/news_image_background"
         android:visibility = "@{StringUtils.isNotEmpty(newsArticle.urlToImage)?View.VISIBLE:View.GONE}"
         tools:visibility="visible"
         urlToLoad="@{newsArticle.urlToImage}"
         android:scaleType="fitXY"
-        android:layout_width="200sp"
-        android:layout_height="200sp"/>
+        android:layout_width="300sp"
+        android:layout_height="300sp"/>
 
     <TextView
         android:id="@+id/newsContent"
@@ -84,6 +86,20 @@
         android:gravity="start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/disclaimer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{newsArticle.disclaimerContent}"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:paddingHorizontal="10sp"
+        android:paddingBottom="10sp"
+        android:background="@drawable/disclaimer_background"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="left"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

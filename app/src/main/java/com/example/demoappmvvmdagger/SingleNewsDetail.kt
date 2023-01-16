@@ -18,9 +18,17 @@ class SingleNewsDetail : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_single_news_detail)
         val imgUrl = intent?.getStringExtra("Image")?: StringUtils.EMPTY
         val description = intent?.getStringExtra("Description")?: StringUtils.EMPTY
-        val author = intent?.getStringExtra("Author")?: StringUtils.EMPTY
+
+        val author = intent?.getStringExtra("Author")?.
+        takeIf { StringUtils.isNotEmpty(it) }?.let{"Source- $it"}?: StringUtils.EMPTY
+
         val title = intent?.getStringExtra("NewsTitle")?: StringUtils.EMPTY
-        val article = Articles(author = author, urlToImage = imgUrl, content = description, title = title)
+
+        val disclaimerContent = "Disclaimer : This news has been obtained from the NewsApi.org ." +
+                " We don't take responsibility for the authenticity of this content"
+
+        val article = Articles(author = author, urlToImage = imgUrl, content = description,
+            title = title, disclaimerContent = disclaimerContent)
         binding.newsArticle = article
 
 

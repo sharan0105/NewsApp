@@ -13,5 +13,7 @@ Articles(
     @SerializedName("urlToImage")
     val urlToImage:String? = null,
     @SerializedName("source")
-    val source:Source?= null
+    val source:Source?= null,
+    //Adding this to pass the disclaimer content , we won't be getting this field from the response
+    val disclaimerContent:String?= null
     )
