@@ -1,5 +1,6 @@
 package com.example.demoappmvvmdagger
 
+import android.text.Spanned
 import com.google.gson.annotations.SerializedName
 
 data class
@@ -15,5 +16,5 @@ Articles(
     @SerializedName("source")
     val source:Source?= null,
     //Adding this to pass the disclaimer content , we won't be getting this field from the response
-    val disclaimerContent:String?= null
+    val disclaimerContent:Spanned?= null
     )

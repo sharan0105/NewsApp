@@ -2,6 +2,8 @@ package com.example.demoappmvvmdagger
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
+import android.text.Spanned
 import androidx.databinding.DataBindingUtil
 import com.example.demoappmvvmdagger.databinding.ActivitySingleNewsDetailBinding
 import org.apache.commons.lang3.StringUtils
@@ -24,11 +26,13 @@ class SingleNewsDetail : AppCompatActivity() {
 
         val title = intent?.getStringExtra("NewsTitle")?: StringUtils.EMPTY
 
-        val disclaimerContent = "Disclaimer : This news has been obtained from the NewsApi.org ." +
+        val disclaimerContent = "<b>Disclaimer</b> : This news has been obtained from the NewsApi.org ." +
                 " We don't take responsibility for the authenticity of this content"
 
+        val finalDisclaimerContent: Spanned = Html.fromHtml(disclaimerContent)
+
         val article = Articles(author = author, urlToImage = imgUrl, content = description,
-            title = title, disclaimerContent = disclaimerContent)
+            title = title, disclaimerContent = finalDisclaimerContent)
         binding.newsArticle = article
 
 
