@@ -37,16 +37,21 @@ class RecViewAdapter(private val newsArticles:List<Articles>):RecyclerView.Adapt
 
         val rvImpl = object : RVClickListener {
             override fun onViewClick() {
-                val intent = Intent(holder.itemView.context,SingleNewsDetail::class.java).apply {
-                    putExtra("Author", authorName)
-                    //These params can be null , handle them properly where you are consuming them
-                    putExtra("NewsTitle", newsTitle)
-                    putExtra("Description", description)
-                    putExtra("Image", imageUrl)
-                    putExtra("Content", content)
+                //Adding check to not navigate user in case we don't have description for the news
+                //or image url as the next screen looks quite empty without these
+                if (!StringUtils.equals(description, null) && !StringUtils.equals(imageUrl, null)) {
+                    val intent =
+                        Intent(holder.itemView.context, SingleNewsDetail::class.java).apply {
+                            putExtra("Author", authorName)
+                            //These params can be null , handle them properly where you are consuming them
+                            putExtra("NewsTitle", newsTitle)
+                            putExtra("Description", description)
+                            putExtra("Image", imageUrl)
+                            putExtra("Content", content)
+                        }
+                    val bundle = Bundle()
+                    startActivity(holder.itemView.context, intent, bundle)
                 }
-                val bundle = Bundle()
-                startActivity(holder.itemView.context, intent, bundle)
             }
         }
       holder.title.text = newsTitle
