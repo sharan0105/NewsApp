@@ -1,15 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <data>
+        <import type="org.apache.commons.lang3.StringUtils"/>
+        <import type="android.view.View"/>
+        <variable
+            name= "countryFlagUrl"
+            type="String" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center_horizontal"
     tools:context=".WelcomeScreen">
 
+    <ImageView
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:id="@+id/flagImg"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@id/welcomeText"
+        flagIconUrl="@{countryFlagUrl}"
+        android:layout_marginRight="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="@{StringUtils.isEmpty(countryFlagUrl)?View.GONE : View.VISIBLE}"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="UPDATE PROFILE"
+        android:textSize="10sp"
+        app:layout_constraintTop_toBottomOf="@id/flagImg"
+        android:id="@+id/updateProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:visibility="@{StringUtils.isEmpty(countryFlagUrl)?View.GONE : View.VISIBLE}"
+        />
+
     <TextView
         android:id="@+id/welcomeText"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="130sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -55,3 +93,4 @@
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -22,7 +22,7 @@ after that automatically we will have all view models along with their keys
 
 class MainViewModelFactory @Inject constructor(private val map : Map<Class<*>,@JvmSuppressWildcards ViewModel>):ViewModelProvider.Factory {
     //With this , we will be able to get our desired view model based on the request we get
-    override fun <T : ViewModel?> create(p0: Class<T>): T {
-        return map[p0] as T
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return map[modelClass] as T
     }
 }

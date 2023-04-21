@@ -7,12 +7,14 @@
         <entry key="app/src/main/res/drawable/disclaimer_background.xml" value="0.1375" />
         <entry key="app/src/main/res/drawable/news_imge_background.xml" value="0.113" />
         <entry key="app/src/main/res/drawable/rec_view_background.xml" value="0.1955" />
+        <entry key="app/src/main/res/drawable/white_bg.xml" value="0.1265" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/activity_news.xml" value="0.19067028985507245" />
-        <entry key="app/src/main/res/layout/activity_single_news_detail.xml" value="0.2942708333333333" />
+        <entry key="app/src/main/res/layout/activity_profile_and_settings.xml" value="0.20822601318359374" />
+        <entry key="app/src/main/res/layout/activity_single_news_detail.xml" value="0.23102310231023102" />
         <entry key="app/src/main/res/layout/activity_user_info.xml" value="0.1852355072463768" />
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.2418478260869565" />
-        <entry key="app/src/main/res/layout/fragment_welcome_screen.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/fragment_welcome_screen.xml" value="0.2419753086419753" />
         <entry key="app/src/main/res/layout/itemview.xml" value="0.375" />
       </map>
     </option>

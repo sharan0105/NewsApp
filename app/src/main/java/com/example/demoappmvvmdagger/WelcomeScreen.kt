@@ -2,16 +2,16 @@ package com.example.demoappmvvmdagger
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModel
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.demoappmvvmdagger.ViewModelFactory.MainViewModelFactory
+import com.example.demoappmvvmdagger.databinding.FragmentWelcomeScreenBinding
 import com.example.demoappmvvmdagger.di.AppComponent
-import com.example.demoappmvvmdagger.viewModels.WelcomeScreenViewModel
 import com.example.demoappmvvmdagger.viewModels.WelcomeScreenViewModelImpl
 import kotlinx.android.synthetic.main.fragment_welcome_screen.*
 import javax.inject.Inject
@@ -26,7 +26,12 @@ class WelcomeScreen : Fragment() {
     @Inject
     lateinit var viewModelFactory:MainViewModelFactory
 
+    @Inject
+    lateinit var flagService: FlagService
+
     lateinit var viewModel:WelcomeScreenViewModelImpl
+
+    lateinit var binding: FragmentWelcomeScreenBinding
 
     var component:AppComponent? = null
 
@@ -38,6 +43,8 @@ class WelcomeScreen : Fragment() {
         component?.injectWelcomeFragment(this)
         viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(WelcomeScreenViewModelImpl::class.java)
         viewModel.onSignUpClick()
+        viewModel.setFlagIcon()
+        observeFlagImageUrl()
 
     }
     override fun onCreateView(
@@ -45,20 +52,29 @@ class WelcomeScreen : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_welcome_screen, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_welcome_screen, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.countryFlagUrl = ""
         btnSeeNews.setOnClickListener {
             val intent = Intent(activity,MainActivity::class.java)
             startActivity(intent)
         }
+
         btnSignUp.setOnClickListener {
                 viewModel.onSignUpClick()
                 activity?.supportFragmentManager?.beginTransaction()?.apply {
                     replace(R.id.fragmentLayout,SignUp(),SignUp::javaClass.name)
                 }?.addToBackStack("SignUpScreen")?.commit()
+        }
+
+        binding.updateProfile.setOnClickListener {
+            startActivity(
+                Intent(activity, ProfileAndSettings::class.java)
+            )
         }
     }
 
@@ -79,5 +95,12 @@ class WelcomeScreen : Fragment() {
                 arguments = Bundle().apply {
                 }
             }
+    }
+
+    private fun observeFlagImageUrl(){
+        viewModel.flagIconUrl.observe(this){
+            Log.d("Flag img url", it)
+            binding.countryFlagUrl = it
+        }
     }
 }

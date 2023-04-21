@@ -1,12 +1,10 @@
 package com.example.demoappmvvmdagger
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.demoappmvvmdagger.ViewModelFactory.MainViewModelFactory
@@ -35,7 +33,7 @@ class MainActivity : AppCompatActivity(){
 
          mainViewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModelImpl::class.java)
          mainViewModel.getNews()
-         mainViewModel.newsArticles.observe(this, Observer {
+         mainViewModel.newsArticles.observe(this){
             binding.loader.visibility =View.GONE
             binding.newsList.visibility=View.VISIBLE
             it?.articles?.let { newsArticles ->
@@ -43,6 +41,6 @@ class MainActivity : AppCompatActivity(){
                 binding.newsList.adapter = RecViewAdapter(newsArticles)
                 binding.newsList.layoutManager=LinearLayoutManager(this)
             }
-        })
+        }
     }
 }
